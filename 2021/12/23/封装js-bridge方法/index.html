@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>学习js bridge | 墨轩</title><meta name="keywords" content="js-bridge"><meta name="author" content="Caoss,1073972756@qq.com"><meta name="copyright" content="Caoss"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概念首先需要知道Hybrid开发，即Native和Web混合开发的一种技术。 优缺点对比    特性 web native    灵活性 无需发版，灵活 需要发版，不灵活   功能 不能使用 native 接口 可以使用所有 native 接口   兼容性 ios 和 android 使用一套代码 需要开发两套代码   混合开发的意义就是结合两者的优点，摒弃缺点。需要快速迭代的需求可以使用前端进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习js bridge">
+<meta property="og:url" content="https://cao1999.github.io/2021/12/23/%E5%B0%81%E8%A3%85js-bridge%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="墨轩">
+<meta property="og:description" content="概念首先需要知道Hybrid开发，即Native和Web混合开发的一种技术。 优缺点对比    特性 web native    灵活性 无需发版，灵活 需要发版，不灵活   功能 不能使用 native 接口 可以使用所有 native 接口   兼容性 ios 和 android 使用一套代码 需要开发两套代码   混合开发的意义就是结合两者的优点，摒弃缺点。需要快速迭代的需求可以使用前端进行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/cao1999/cdnAssets@v0.0.8/blog/img/js-bridge/cover.webp">
+<meta property="article:published_time" content="2021-12-23T12:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-15T15:49:48.039Z">
+<meta property="article:author" content="Caoss">
+<meta property="article:tag" content="js-bridge">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/cao1999/cdnAssets@v0.0.8/blog/img/js-bridge/cover.webp"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/cao1999/cdnAssets@v0.0.7/blog/img/common/favicon.png"><link rel="canonical" href="https://cao1999.github.io/2021/12/23/%E5%B0%81%E8%A3%85js-bridge%E6%96%B9%E6%B3%95/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":1000,"languages":{"author":"作者: Caoss","link":"链接: ","source":"来源: 墨轩","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '学习js bridge',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-15 15:49:48'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/cao1999/cdnAssets@v0.0.7/blog/img/common/avatar.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">45</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/projects/"><i class="fa-fw fas fa-book"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/cao1999/cdnAssets@v0.0.8/blog/img/js-bridge/cover.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">墨轩</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/projects/"><i class="fa-fw fas fa-book"></i><span> 项目</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">学习js bridge</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-23T12:00:00.000Z" title="发表于 2021-12-23 12:00:00">2021-12-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-15T15:49:48.039Z" title="更新于 2022-02-15 15:49:48">2022-02-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="学习js bridge"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>首先需要知道<code>Hybrid</code>开发，即<code>Native</code>和<code>Web</code><strong>混合开发</strong>的一种技术。</p>
+<p><strong>优缺点对比</strong></p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>web</th>
+<th>native</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>灵活性</td>
+<td>无需发版，灵活</td>
+<td><strong>需要发版</strong>，不灵活</td>
+</tr>
+<tr>
+<td>功能</td>
+<td>不能使用 <code>native </code>接口</td>
+<td>可以使用所有 <code>native</code> 接口</td>
+</tr>
+<tr>
+<td>兼容性</td>
+<td><code>ios</code> 和 <code>android</code> 使用一套代码</td>
+<td>需要开发<strong>两套</strong>代码</td>
+</tr>
+</tbody></table>
+<p><strong>混合开发</strong>的意义就是结合两者的优点，摒弃缺点。需要<strong>快速迭代</strong>的需求可以使用前端进行开发，已经稳定的功能可以使用客户端进行开发</p>
+<p><code>js bridge</code>是实现<strong>客户端和前端</strong>数据通信的技术</p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p><strong>主要功能</strong></p>
+<ol>
+<li>前端<strong>同步调用</strong>客户端方法</li>
+<li>前端<strong>异步调用</strong>客户端方法，需要传<code>callback</code></li>
+<li>客户端<strong>同步调用</strong>前端方法，<strong>对前端来说相当于事件</strong></li>
+</ol>
+<p><strong>辅助功能</strong></p>
+<ol>
+<li>判断当前环境是<strong>浏览器</strong>还是<strong>App</strong>，浏览器环境无<strong>App</strong>方法。不能通过<code>userAgent</code>进行判断，浏览器自带的手机模拟器的<code>userAgent</code>值也是<code>native</code>。判断前端是否<strong>存在客户端注入的方法</strong>是可行的</li>
+<li>是否开启 <strong>debug</strong>模式，会在控制台打印<strong>调用客户端方法</strong>的细节</li>
+<li>判断客户端是否<strong>存在</strong>某个方法</li>
+<li>实现<code>EventEmitter</code>用来<strong>管理事件</strong></li>
+</ol>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h4 id="前端同步调用客户端"><a href="#前端同步调用客户端" class="headerlink" title="前端同步调用客户端"></a>前端同步调用客户端</h4><p>最简单的方式就是客户端把方法<code>fn</code>注册到<code>window</code>对象，然后前端直接调用<code>window.fn()</code>去触发。</p>
+<p>以上方法会存在一些问题</p>
+<ol>
+<li><strong>污染全局变量</strong>，如果想在<code>window</code>对象上添加<strong>同名函数</strong>，会<strong>覆盖</strong>客户端方法</li>
+<li>不好进行管理</li>
+</ol>
+<p>比较好的方法是将<strong>客户端注入的方法</strong>统一放到<code>window</code>对象的<strong>属性中</strong>，例如<code>window.nativeApi = &#123;&#125;</code>,</p>
+<p>前端调用客户端某个方法<code>window.nativeApi.foo()</code></p>
+<h4 id="前端异步调用客户端"><a href="#前端异步调用客户端" class="headerlink" title="前端异步调用客户端"></a>前端异步调用客户端</h4><p><strong>异步调用</strong>其实是由**两次单向(前端先调用客户端，然后客户端在调用前端)**调用组成</p>
+<p>前端是无法直接将<strong>异步回调</strong>当作<strong>参数</strong>传给客户端并让其执行的，<strong>异步回调</strong>只能在前端执行</p>
+<p>目前可行的做法是在<strong>前端</strong>创建一个<code>map</code><strong>用来存储前端的<code>callback</code><strong>，<code>key</code>为<code>callbackId</code>，<code>value</code>为<code>callback</code>。前端调用客户端方法时将<code>callbackId</code>作为参数传过去，当客户端方法执行结束后需要执行前端回调时，调用前端的指定方法<code>handleMessage</code>，将这个<code>callbackId</code>和<code>callback 参数</code>传回前端。前端在根据<code>callbackId</code>去<code>map</code>中找到指定的<code>callback</code>，执行并将参数传给这个<code>callback</code>，这样就实现了</strong>异步调用客户端方法了</strong></p>
+<h4 id="客户端同步调用前端"><a href="#客户端同步调用前端" class="headerlink" title="客户端同步调用前端"></a>客户端同步调用前端</h4><p>基本原理就是前端将方法<strong>注入到<code>window</code>或者<code>window</code>对象下的属性中</strong>，客户端在去调用这个方法。</p>
+<p>基于<strong>上述原理</strong>可以有以下<strong>两种方式</strong>实现<strong>客户端调用前端方法</strong></p>
+<p><strong>第一种</strong>就是上述原理所述方法，但是这种方法会有<strong>弊端</strong>。<strong>相同方法名</strong>的函数只能<strong>注册一次</strong>，多次注册后者会<strong>覆盖</strong>前者，但是在开发中经常会遇到需要<strong>多次注册相同函数</strong>的需求。例如<code>wakeUp</code>事件，在页面<strong>唤醒</strong>后执行前端函数，往往<strong>很多页面</strong>都会注册<code>wakeUp</code>事件，这时就需要有多个<code>wakeUp</code>函数。第二种方法可以满足这种需求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在a页面注册wakeUp函数</span></span><br><span class="line"><span class="built_in">window</span>.wakeUp = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;a页面&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在b页面注册wakeUp事件</span></span><br><span class="line"><span class="built_in">window</span>.wakeUp = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;b页面&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这时b页面的wakeUp函数必然会覆盖a页面的wakeUp函数</span></span><br><span class="line"><span class="comment">// 可能会导致a页面出现不可预测的问题</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>第二种</strong>方法是基于<strong>事件驱动</strong>的，重点在前端。我们可以把客户端调用前端方法理解成<strong>前端注册了一个事件</strong>，等待客户端去触发这个事件<strong>相当于前端监听客户端的这个事件</strong>。因为前端注册方法后并不会立即执行，而是等待触发了客户端某些行为后才会触发，例如<code>wakeUp</code><strong>页面唤醒</strong>事件</p>
+<p>既然是事件，肯定可以<strong>注册多次</strong>，并且需要支持<strong>注册事件</strong>、<strong>触发事件</strong>、<strong>卸载事件</strong>等一系列操作，在这里使用<strong>订阅-发布者模式</strong><code>EventEmitter</code>最为适合，这样也就支持了在<strong>多个页面</strong>注册<strong>相同函数（事件）</strong>的功能了</p>
+<p>首先开发一个<code>EventEmitter</code>，基于它封装三个函数。分别是<code>Native_on(type, callback)</code><strong>监听</strong>客户端方法；<code>Native_off(type, callback)</code><strong>取消监听</strong>客户端方法；<code>handleMessage(message)</code><strong>触发事件</strong>并且参数中会携带<strong>事件</strong>的信息（事件名，回调参数等等），该方法会绑定到<code>window</code>上由客户端进行触发。这三个方法的本质就是对<code>EventEmitter</code>中的<strong>队列进行维护</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventEmitter</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 维护事件即事件回调</span></span><br><span class="line">    <span class="built_in">this</span>.events = &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 监听事件</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;string&#125;</span> </span>type 事件名</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;() =&gt; any&#125;</span> </span>callback 触发后执行的回调</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="title">on</span>(<span class="params">type, callback</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!type) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.events[type]) &#123;</span><br><span class="line">      <span class="built_in">this</span>.events[type].push(callback);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.events[type] = [callback];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 卸载事件</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;string&#125;</span> </span>type 事件名</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;() =&gt; any&#125;</span> </span>callback 监听时的回调</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="title">off</span>(<span class="params">type, callback</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!type) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.events[type]) &#123;</span><br><span class="line">      <span class="built_in">this</span>.events[type] = <span class="built_in">this</span>.events[type].filter(<span class="function">(<span class="params">cb</span>) =&gt;</span> cb !== callback);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 事件不存在</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 触发事件</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;string&#125;</span> </span>type 事件名</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="title">emit</span>(<span class="params">type</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!type) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.events[type]) &#123;</span><br><span class="line">      <span class="built_in">this</span>.events[type].forEach(<span class="function">(<span class="params">cb</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">typeof</span> cb === <span class="string">&quot;function&quot;</span> &amp;&amp; cb();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 事件不存在</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例化一个event</span></span><br><span class="line"><span class="keyword">const</span> events = <span class="keyword">new</span> EventEmitter();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Native_on</span>(<span class="params">type, callback</span>) </span>&#123;</span><br><span class="line">  events.on(type, callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Native_off</span>(<span class="params">type, callback</span>) </span>&#123;</span><br><span class="line">  events.off(type, callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleMessage</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; type &#125; = message;</span><br><span class="line">  events.emit(type);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注册到window上，等待客户端调用</span></span><br><span class="line"><span class="built_in">window</span>.handleMessage = handleMessage;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wakeUp</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;wakeUp&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听事件</span></span><br><span class="line">Native.on(<span class="string">&quot;wakeUp&quot;</span>, wakeUp);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 卸载事件</span></span><br><span class="line">Native.off(<span class="string">&quot;wakeUp&quot;</span>, wakeUp);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户端触发事件</span></span><br><span class="line"><span class="built_in">window</span>.handleMessage(&#123; <span class="attr">type</span>: <span class="string">&quot;wakeUp&quot;</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>两种方法比较</strong></p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>方法一</th>
+<th>方法二</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>复杂度</td>
+<td><strong>不复杂</strong>，直接将前端方法注入<code>window</code>等待客户端调用</td>
+<td><strong>复杂</strong>，客户端只需要调用<code>handleMessage</code>方法通知前端，大部分工作是有前端完成(EventEmitter)</td>
+</tr>
+<tr>
+<td>功能</td>
+<td>不支持<strong>同一方法</strong>注册多个回调，否则会进行覆盖，最终只能<strong>保留一个</strong></td>
+<td>支持<strong>同一方法</strong>注册<strong>多个回调</strong>，同时支持<strong>卸载</strong>回调</td>
+</tr>
+</tbody></table>
+<p>使用哪种方法取决于<strong>是否有注册多个回调</strong>的需求，没有则选择方法一非常简单，如果有则必须使用第二种方法</p>
+<h3 id="通信时参数的数据结构"><a href="#通信时参数的数据结构" class="headerlink" title="通信时参数的数据结构"></a>通信时参数的数据结构</h3><blockquote>
+<p><strong>双端</strong>通信必须提前<strong>统一接口数据结构</strong></p>
+</blockquote>
+<p><strong>handleMessage</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;&quot;</span>, <span class="comment">// message类型 event 或者 callback</span></span><br><span class="line">  <span class="attr">&quot;callback_id&quot;</span>: <span class="string">&quot;&quot;</span>, <span class="comment">// 异步回调的callback_id</span></span><br><span class="line">  <span class="attr">&quot;event&quot;</span>: <span class="string">&quot;&quot;</span>, <span class="comment">// 事件名称</span></span><br><span class="line">  <span class="attr">&quot;args&quot;</span>: <span class="string">&quot;&quot;</span> <span class="comment">// 传给事件回调的参数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:1073972756@qq.com">Caoss</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://cao1999.github.io/2021/12/23/%E5%B0%81%E8%A3%85js-bridge%E6%96%B9%E6%B3%95/">https://cao1999.github.io/2021/12/23/%E5%B0%81%E8%A3%85js-bridge%E6%96%B9%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://cao1999.github.io" target="_blank">墨轩</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/js-bridge/">js-bridge</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/cao1999/cdnAssets@v0.0.8/blog/img/js-bridge/cover.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">封装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD"><span class="toc-number">2.1.</span> <span class="toc-text">功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.2.</span> <span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E5%90%8C%E6%AD%A5%E8%B0%83%E7%94%A8%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">2.2.1.</span> <span class="toc-text">前端同步调用客户端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E5%BC%82%E6%AD%A5%E8%B0%83%E7%94%A8%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">2.2.2.</span> <span class="toc-text">前端异步调用客户端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%8C%E6%AD%A5%E8%B0%83%E7%94%A8%E5%89%8D%E7%AB%AF"><span class="toc-number">2.2.3.</span> <span class="toc-text">客户端同步调用前端</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E6%97%B6%E5%8F%82%E6%95%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">2.3.</span> <span class="toc-text">通信时参数的数据结构</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/cao1999/cdnAssets@v0.0.8/blog/img/js-bridge/cover.webp')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Caoss</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
